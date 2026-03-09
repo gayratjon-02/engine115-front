@@ -15,6 +15,11 @@ export function removeAccessToken(): void {
     localStorage.removeItem('accessToken');
 }
 
+export function isLoggedIn(): boolean {
+    if (typeof window === 'undefined') return false;
+    return Boolean(localStorage.getItem('accessToken'));
+}
+
 // ── Base Fetch ──
 
 interface ApiOptions extends Omit<RequestInit, 'body'> {
