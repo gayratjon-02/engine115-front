@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { T, fonts } from "../theme/theme";
+import { T, fonts } from "../../theme/theme";
 import { Ico } from "./Ico";
-import { NAV_ITEMS } from "../data/mockData";
-import type { PageId } from "../types";
+import { NAV_ITEMS } from "../../data/mockData";
+import type { PageId } from "../../types";
 
 interface SidebarProps {
   page: PageId;

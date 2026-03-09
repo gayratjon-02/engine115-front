@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { T, fonts } from "../theme/theme";
+import { T, fonts } from "../../theme/theme";
 import { Ico } from "./Ico";
-import type { DatePreset, PageId } from "../types";
+import type { DatePreset, PageId } from "../../types";
 
 interface TopBarProps {
   page: PageId;

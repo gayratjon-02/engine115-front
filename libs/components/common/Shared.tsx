@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { T, fonts } from "../theme/theme";
+import { T, fonts } from "../../theme/theme";
 import { Ico } from "./Ico";
-import type { Creative } from "../types";
+import type { Creative } from "../../types";
 
 // ── Section Header ──
 

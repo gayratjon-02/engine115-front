@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { T, fonts } from "../theme/theme";
+import { T, fonts } from "../../theme/theme";
 import { Ico } from "./Ico";
 import { Spark } from "./Spark";
-import type { MetricValue } from "../types";
-import { spkUp } from "../data/mockData";
+import type { MetricValue } from "../../types";
+import { spkUp } from "../../data/mockData";
 
 type MetricCardProps = MetricValue;
 

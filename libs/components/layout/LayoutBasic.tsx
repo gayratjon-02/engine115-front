@@ -2,8 +2,8 @@ import React, { useMemo } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { Stack } from '@mui/material';
-import TopBar from '../common/TopBar';
-import Sidebar from '../common/Sidebar';
+import { TopBar } from '../common/TopBar';
+import { Sidebar } from '../common/Sidebar';
 import { T } from '../../theme/theme';
 
 const withLayoutBasic = (Component: any) => {
@@ -39,7 +39,7 @@ const withLayoutBasic = (Component: any) => {
                     {/* Sidebar */}
                     <Sidebar
                         page={memoizedValues.pageId as any}
-                        onPageChange={(page) => {
+                        onPageChange={(page: string) => {
                             if (page === 'dashboard') router.push('/');
                             else router.push(`/${page}`);
                         }}

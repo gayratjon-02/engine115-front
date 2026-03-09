@@ -1,5 +1,5 @@
 import React from "react";
-import { T } from "../theme/theme";
+import { T } from "../../theme/theme";
 
 interface SparkProps {
   data: number[];

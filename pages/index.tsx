@@ -1,10 +1,10 @@
 import React from "react";
-import withLayoutBasic from "../../libs/components/layout/LayoutBasic";
-import { T, fonts } from "../../libs/theme/theme";
-import { MetricCard } from "../../libs/components/common/MetricCard";
-import { SectionHead, LockedWrap } from "../../libs/components/common/Shared";
-import { Ico } from "../../libs/components/common/Ico";
-import { DASHBOARD_FAVORITES, DASHBOARD_CHANNELS } from "../../libs/data/mockData";
+import withLayoutBasic from "../libs/components/layout/LayoutBasic";
+import { T, fonts } from "../libs/theme/theme";
+import { MetricCard } from "../libs/components/common/MetricCard";
+import { SectionHead, LockedWrap } from "../libs/components/common/Shared";
+import { Ico } from "../libs/components/common/Ico";
+import { DASHBOARD_FAVORITES, DASHBOARD_CHANNELS } from "../libs/data/mockData";
 
 const CHANNEL_LABELS: Record<string, { label: string; icon: string; color: string }> = {
     shopify: { label: "Shopify", icon: "box", color: T.green },
