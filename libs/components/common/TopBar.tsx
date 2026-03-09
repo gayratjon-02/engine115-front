@@ -51,35 +51,15 @@ export const TopBar: React.FC<TopBarProps> = ({
             : "Nov 16, 2025 - Feb 14, 2026";
 
   return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        padding: "16px 28px",
-        borderBottom: `1px solid ${T.border}`,
-        background: T.bg,
-        position: "sticky",
-        top: 0,
-        zIndex: 20,
-      }}
-    >
-      <div>
-        <div style={{ fontSize: 17, fontWeight: 700 }}>{PAGE_TITLES[page]}</div>
-        <div style={{ fontSize: 11, color: T.dim, fontFamily: fonts.mono, marginTop: 1 }}>{dateLabel}</div>
+    <div className="topbar">
+      <div className="topbar-left">
+        <div className="page-title">{PAGE_TITLES[page]}</div>
+        <div className="date-label">{dateLabel}</div>
       </div>
 
-      <div style={{ display: "flex", alignItems: "center", gap: 8, position: "relative" }}>
+      <div className="topbar-right">
         {/* Date Preset Buttons */}
-        <div
-          style={{
-            display: "flex",
-            background: T.bgInput,
-            borderRadius: 7,
-            border: `1px solid ${T.border}`,
-            overflow: "hidden",
-          }}
-        >
+        <div className="date-presets">
           {DATE_OPTS.map((o) => (
             <button
               key={o.id}
@@ -88,16 +68,7 @@ export const TopBar: React.FC<TopBarProps> = ({
                 if (o.id === "custom") setShowCustomDate(!showCustomDate);
                 else setShowCustomDate(false);
               }}
-              style={{
-                padding: "5px 12px",
-                border: "none",
-                fontSize: 10,
-                fontWeight: 600,
-                fontFamily: fonts.mono,
-                cursor: "pointer",
-                background: dateRange === o.id ? T.accentDim : "transparent",
-                color: dateRange === o.id ? T.accent : T.muted,
-              }}
+              className={`preset-btn ${dateRange === o.id ? "is-active" : ""}`}
             >
               {o.label}
             </button>
@@ -106,83 +77,34 @@ export const TopBar: React.FC<TopBarProps> = ({
 
         {/* Custom Date Picker Dropdown */}
         {showCustomDate && (
-          <div
-            style={{
-              position: "absolute",
-              top: "calc(100% + 8px)",
-              right: 0,
-              background: T.bgCard,
-              border: `1px solid ${T.border}`,
-              borderRadius: 10,
-              padding: 16,
-              zIndex: 50,
-              display: "flex",
-              flexDirection: "column",
-              gap: 10,
-              minWidth: 260,
-            }}
-          >
-            <div style={{ fontSize: 11, fontWeight: 600, color: T.muted, fontFamily: fonts.mono }}>
+          <div className="custom-date-dropdown">
+            <div className="dropdown-title">
               Custom Date Range
             </div>
-            <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-              <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 9, color: T.dim, fontFamily: fonts.mono, marginBottom: 4 }}>FROM</div>
+            <div className="date-inputs-row">
+              <div className="date-input-group">
+                <div className="input-label">FROM</div>
                 <input
                   type="date"
                   value={customFrom}
                   onChange={(e) => onCustomFromChange(e.target.value)}
-                  style={{
-                    width: "100%",
-                    padding: "6px 8px",
-                    borderRadius: 6,
-                    border: `1px solid ${T.border}`,
-                    background: T.bgInput,
-                    color: T.text,
-                    fontSize: 11,
-                    fontFamily: fonts.mono,
-                    outline: "none",
-                    boxSizing: "border-box",
-                    colorScheme: "dark",
-                  }}
+                  className="date-input"
                 />
               </div>
-              <span style={{ color: T.dim, fontSize: 12, marginTop: 14 }}>to</span>
-              <div style={{ flex: 1 }}>
-                <div style={{ fontSize: 9, color: T.dim, fontFamily: fonts.mono, marginBottom: 4 }}>TO</div>
+              <span className="to-separator">to</span>
+              <div className="date-input-group">
+                <div className="input-label">TO</div>
                 <input
                   type="date"
                   value={customTo}
                   onChange={(e) => onCustomToChange(e.target.value)}
-                  style={{
-                    width: "100%",
-                    padding: "6px 8px",
-                    borderRadius: 6,
-                    border: `1px solid ${T.border}`,
-                    background: T.bgInput,
-                    color: T.text,
-                    fontSize: 11,
-                    fontFamily: fonts.mono,
-                    outline: "none",
-                    boxSizing: "border-box",
-                    colorScheme: "dark",
-                  }}
+                  className="date-input"
                 />
               </div>
             </div>
             <button
               onClick={() => setShowCustomDate(false)}
-              style={{
-                padding: "7px 16px",
-                borderRadius: 6,
-                border: "none",
-                background: T.grad,
-                color: "#000",
-                fontSize: 11,
-                fontWeight: 700,
-                fontFamily: fonts.mono,
-                cursor: "pointer",
-              }}
+              className="apply-btn"
             >
               Apply Range
             </button>
@@ -190,18 +112,7 @@ export const TopBar: React.FC<TopBarProps> = ({
         )}
 
         {/* Settings */}
-        <div
-          style={{
-            width: 32,
-            height: 32,
-            borderRadius: 7,
-            border: `1px solid ${T.border}`,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            cursor: "pointer",
-          }}
-        >
+        <div className="settings-btn">
           <Ico type="settings" size={14} color={T.dim} />
         </div>
       </div>
