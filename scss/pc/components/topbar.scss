@@ -1,0 +1,146 @@
+@import '../../variables';
+
+.topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 28px;
+    border-bottom: 1px solid $border;
+    background: $bg;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+
+    .topbar-left {
+        .page-title {
+            font-size: 17px;
+            font-weight: 700;
+            color: $text;
+        }
+
+        .date-label {
+            font-size: 11px;
+            color: $dim;
+            font-family: $mono;
+            margin-top: 1px;
+        }
+    }
+
+    .topbar-right {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        position: relative;
+
+        .date-presets {
+            display: flex;
+            background: $bgInput;
+            border-radius: 7px;
+            border: 1px solid $border;
+            overflow: hidden;
+
+            .preset-btn {
+                padding: 5px 12px;
+                border: none;
+                font-size: 10px;
+                font-weight: 600;
+                font-family: $mono;
+                cursor: pointer;
+                background: transparent;
+                color: $muted;
+
+                &.is-active {
+                    background: $accentDim;
+                    color: $accent;
+                }
+            }
+        }
+
+        .custom-date-dropdown {
+            position: absolute;
+            top: calc(100% + 8px);
+            right: 0;
+            background: $bgCard;
+            border: 1px solid $border;
+            border-radius: 10px;
+            padding: 16px;
+            z-index: 50;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            min-width: 260px;
+
+            .dropdown-title {
+                font-size: 11px;
+                font-weight: 600;
+                color: $muted;
+                font-family: $mono;
+            }
+
+            .date-inputs-row {
+                display: flex;
+                gap: 8px;
+                align-items: center;
+
+                .date-input-group {
+                    flex: 1;
+
+                    .input-label {
+                        font-size: 9px;
+                        color: $dim;
+                        font-family: $mono;
+                        margin-bottom: 4px;
+                    }
+
+                    .date-input {
+                        width: 100%;
+                        padding: 6px 8px;
+                        border-radius: 6px;
+                        border: 1px solid $border;
+                        background: $bgInput;
+                        color: $text;
+                        font-size: 11px;
+                        font-family: $mono;
+                        outline: none;
+                        box-sizing: border-box;
+                        color-scheme: dark;
+                    }
+                }
+
+                .to-separator {
+                    color: $dim;
+                    font-size: 12px;
+                    margin-top: 14px;
+                }
+            }
+
+            .apply-btn {
+                padding: 7px 16px;
+                border-radius: 6px;
+                border: none;
+                background: $grad;
+                color: #000;
+                font-size: 11px;
+                font-weight: 700;
+                font-family: $mono;
+                cursor: pointer;
+            }
+        }
+
+        .settings-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 7px;
+            border: 1px solid $border;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            background: transparent;
+
+            &:hover {
+                background: $bgHover;
+            }
+        }
+    }
+}
