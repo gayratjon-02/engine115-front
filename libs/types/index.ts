@@ -7,7 +7,7 @@
 
 export type PlanTier = "free" | "pro" | "agency";
 export type DatePreset = "7d" | "14d" | "30d" | "90d" | "custom";
-export type PageId = "dashboard" | "pnl" | "creatives" | "ltv" | "account";
+export type PageId = "dashboard" | "pnl" | "creatives" | "ltv" | "integrations" | "account";
 export type AdType = "Video" | "Static";
 export type SortOrder = "asc" | "desc";
 

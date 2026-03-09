@@ -11,6 +11,7 @@ import type {
   LtvDriversGroup,
   NavItem,
 } from "../types";
+import type { Integration } from "../components/integrations/IntegrationsSection";
 
 // ── Sparkline Presets ──
 
@@ -26,6 +27,7 @@ export const NAV_ITEMS: NavItem[] = [
   { id: "pnl", label: "P&L", icon: "dollar" },
   { id: "creatives", label: "AI Creative Analysis", icon: "brain", pro: true },
   { id: "ltv", label: "LTV Cohorts", icon: "layers", pro: true },
+  { id: "integrations", label: "Integrations", icon: "zap" },
 ];
 
 // ── P&L Products (before COGS entry) ──
@@ -235,3 +237,14 @@ export function computeCreativeRanks(creatives: Creative[]): Creative[] {
 
 // Auto-compute on import
 computeCreativeRanks(CREATIVES_DEMO);
+
+// ── Integrations ──
+
+export const INTEGRATIONS_INIT: Integration[] = [
+  { id: "shopify", name: "Shopify", icon: "box", description: "Sync orders, products, and customer data", connected: true, lastSync: "2 min ago" },
+  { id: "meta", name: "Meta Ads", icon: "image", description: "Facebook & Instagram ad performance", connected: true, lastSync: "5 min ago" },
+  { id: "google-ads", name: "Google Ads", icon: "google", description: "Search, display, and shopping campaigns", connected: true, lastSync: "8 min ago" },
+  { id: "tiktok", name: "TikTok Ads", icon: "play", description: "TikTok ad spend and conversions", connected: false },
+  { id: "klaviyo", name: "Klaviyo", icon: "mail", description: "Email & SMS marketing attribution", connected: false },
+  { id: "google-analytics", name: "Google Analytics", icon: "chart", description: "Website traffic and behavior data", connected: false },
+];

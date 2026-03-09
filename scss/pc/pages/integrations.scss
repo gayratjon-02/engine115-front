@@ -1,0 +1,173 @@
+@import '../../variables';
+
+// ── Integrations Page ──
+.integrations-page {
+    max-width: 640px;
+    padding: 32px 0;
+}
+
+// ── Integrations Section ──
+.integrations-section {
+    .integrations-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 16px;
+
+        .integrations-title-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            .integrations-title {
+                font-size: 16px;
+                font-weight: 700;
+                color: $text;
+            }
+        }
+
+        .integrations-count {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            font-size: 11px;
+            font-family: $mono;
+
+            .count-num {
+                color: $accent;
+                font-weight: 600;
+            }
+
+            .count-sep {
+                color: $dim;
+            }
+
+            .count-total {
+                color: $muted;
+            }
+
+            .count-label {
+                color: $dim;
+                margin-left: 4px;
+            }
+        }
+    }
+
+    .integrations-list {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+}
+
+// ── Integration Card ──
+.integration-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 20px;
+    background: $bgCard;
+    border: 1px solid $border;
+    border-radius: 12px;
+    transition: all 0.15s;
+
+    &:hover {
+        border-color: $borderHover;
+    }
+
+    &.is-connected {
+        border-color: rgba(0, 229, 204, 0.15);
+
+        &:hover {
+            border-color: rgba(0, 229, 204, 0.3);
+        }
+    }
+
+    .integration-icon-wrap {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        background: $bgInput;
+        border: 1px solid $border;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    .integration-info {
+        flex: 1;
+        min-width: 0;
+
+        .integration-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: $text;
+            margin-bottom: 2px;
+        }
+
+        .integration-desc {
+            font-size: 11px;
+            color: $muted;
+            line-height: 1.4;
+        }
+
+        .integration-sync {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 4px;
+
+            .sync-dot {
+                width: 5px;
+                height: 5px;
+                border-radius: 50%;
+                background: $green;
+            }
+
+            .sync-text {
+                font-size: 9px;
+                color: $dim;
+                font-family: $mono;
+            }
+        }
+    }
+
+    .integration-action {
+        flex-shrink: 0;
+
+        .integration-btn {
+            padding: 7px 16px;
+            border-radius: 7px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s;
+            white-space: nowrap;
+
+            &.is-connect {
+                background: $accentGlow;
+                border: 1px solid rgba(0, 229, 204, 0.3);
+                color: $accent;
+
+                &:hover {
+                    background: rgba(0, 229, 204, 0.2);
+                    border-color: rgba(0, 229, 204, 0.5);
+                }
+            }
+
+            &.is-disconnect {
+                background: transparent;
+                border: 1px solid $border;
+                color: $muted;
+                min-width: 96px;
+
+                &.is-hovered {
+                    background: rgba(239, 68, 68, 0.07);
+                    border-color: rgba(239, 68, 68, 0.4);
+                    color: $red;
+                }
+            }
+        }
+    }
+}

@@ -17,6 +17,7 @@ const withLayoutBasic = (Component: any) => {
             if (router.pathname.includes('/pnl')) pageId = 'pnl';
             else if (router.pathname.includes('/creatives')) pageId = 'creatives';
             else if (router.pathname.includes('/ltv')) pageId = 'ltv';
+            else if (router.pathname.includes('/integrations')) pageId = 'integrations';
             else if (router.pathname.includes('/account')) pageId = 'account';
 
             return { pageId };
