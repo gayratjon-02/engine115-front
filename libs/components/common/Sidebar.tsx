@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { T, fonts } from "../../theme/theme";
+import { useRouter } from "next/router";
+import { T } from "../../theme/theme";
 import { Ico } from "./Ico";
 import { NAV_ITEMS } from "../../data/mockData";
 import type { PageId } from "../../types";
@@ -12,6 +13,8 @@ interface SidebarProps {
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({ page, onPageChange, collapsed, onToggleCollapse }) => {
+  const router = useRouter();
+
   return (
     <div className={`sidebar ${collapsed ? "is-collapsed" : "is-expanded"}`}>
       {/* Logo */}
@@ -46,26 +49,38 @@ export const Sidebar: React.FC<SidebarProps> = ({ page, onPageChange, collapsed,
         ))}
       </div>
 
-      {/* Sources Badge */}
-      {!collapsed && (
-        <div className="sources-badge-wrap">
-          <div className="sources-badge">
-            <div className="status-dot" />
-            <span className="source-count">3 Sources</span>
-            <span className="source-status">Connected</span>
+      {/* Bottom Section — pushes to the bottom */}
+      <div className="sidebar-bottom">
+        {/* Sources Badge */}
+        {!collapsed && (
+          <div className="sources-badge-wrap">
+            <div className="sources-badge">
+              <div className="status-dot" />
+              <span className="source-count">3 Sources</span>
+              <span className="source-status">Connected</span>
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {/* Upgrade CTA */}
-      {!collapsed && (
-        <div className="upgrade-cta-wrap">
-          <div className="upgrade-cta">
-            <div className="cta-text">Unlock AI Creative Analysis and LTV Cohort tracking</div>
-            <div className="cta-price">PRO - $99/mo</div>
+        {/* Upgrade CTA */}
+        {!collapsed && (
+          <div className="upgrade-cta-wrap">
+            <div className="upgrade-cta">
+              <div className="cta-text">Unlock AI Creative Analysis and LTV Cohort tracking</div>
+              <div className="cta-price">PRO - $99/mo</div>
+            </div>
           </div>
-        </div>
-      )}
+        )}
+
+        {/* Account Link */}
+        <SidebarItem
+          icon="user"
+          label="Account"
+          active={false}
+          collapsed={collapsed}
+          onClick={() => router.push("/account")}
+        />
+      </div>
     </div>
   );
 };
