@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import withLayoutBasic from "../../libs/components/layout/LayoutBasic";
-import { T, fonts } from "../../libs/theme/theme";
+import { T } from "../../libs/theme/theme";
 import { MetricCard } from "../../libs/components/common/MetricCard";
 import { SectionHead } from "../../libs/components/common/Shared";
 import { Ico } from "../../libs/components/common/Ico";
@@ -10,45 +10,29 @@ const PnLPage: React.FC = () => {
     const [cogsSetup, setCogsSetup] = useState(false);
 
     if (!cogsSetup) {
-        // ── COGS Input Screen ──
         return (
-            <div>
+            <div className="pnl-page">
                 <SectionHead
                     icon="dollar"
                     label="Product Costs"
                     right={
-                        <span style={{ fontSize: 10, color: T.dim, fontFamily: fonts.mono }}>
+                        <span style={{ fontSize: 10, color: T.dim, fontFamily: "monospace" }}>
                             {PRODUCTS_INIT.length} products synced from Shopify
                         </span>
                     }
                 />
-                <p style={{ fontSize: 13, color: T.muted, marginBottom: 18, marginTop: -4 }}>
+                <p className="page-intro">
                     Enter your COGS and shipping cost per unit to calculate true profitability.
                 </p>
 
-                <div
-                    style={{
-                        background: T.bgCard,
-                        border: `1px solid ${T.border}`,
-                        borderRadius: 12,
-                        overflow: "hidden",
-                    }}
-                >
+                <div className="data-table">
                     {/* Header Row */}
                     <div
-                        style={{
-                            display: "grid",
-                            gridTemplateColumns: "0.3fr 2fr 0.8fr 1fr 1fr",
-                            gap: 10,
-                            padding: "12px 16px",
-                            borderBottom: `1px solid ${T.border}`,
-                            background: T.bgInput,
-                        }}
+                        className="table-header"
+                        style={{ gridTemplateColumns: "0.3fr 2fr 0.8fr 1fr 1fr" }}
                     >
                         {["", "Product", "Price", "COGS / Unit", "Shipping / Unit"].map((h) => (
-                            <span key={h} style={{ fontSize: 9, fontWeight: 600, color: T.dim, fontFamily: fonts.mono }}>
-                                {h}
-                            </span>
+                            <span key={h} className="header-cell">{h}</span>
                         ))}
                     </div>
 
@@ -56,37 +40,15 @@ const PnLPage: React.FC = () => {
                     {PRODUCTS_INIT.map((p) => (
                         <div
                             key={p.id}
-                            style={{
-                                display: "grid",
-                                gridTemplateColumns: "0.3fr 2fr 0.8fr 1fr 1fr",
-                                gap: 10,
-                                padding: "10px 16px",
-                                borderBottom: `1px solid ${T.border}`,
-                                alignItems: "center",
-                            }}
+                            className="table-row"
+                            style={{ gridTemplateColumns: "0.3fr 2fr 0.8fr 1fr 1fr" }}
                         >
-                            <div
-                                style={{
-                                    width: 26,
-                                    height: 26,
-                                    borderRadius: 5,
-                                    background: `${T.accent}12`,
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    fontSize: 8,
-                                    fontWeight: 700,
-                                    fontFamily: fonts.mono,
-                                    color: T.accent,
-                                }}
-                            >
-                                {p.img}
+                            <div className="product-thumb">{p.img}</div>
+                            <div className="product-info">
+                                <div className="product-name">{p.name}</div>
+                                <div className="product-sku">{p.sku}</div>
                             </div>
-                            <div>
-                                <div style={{ fontSize: 11, fontWeight: 500 }}>{p.name}</div>
-                                <div style={{ fontSize: 9, fontFamily: fonts.mono, color: T.dim }}>{p.sku}</div>
-                            </div>
-                            <span style={{ fontSize: 12, fontFamily: fonts.mono, fontWeight: 600 }}>${p.price.toFixed(2)}</span>
+                            <span className="cell-mono cell-bold">${p.price.toFixed(2)}</span>
                             <CostInput />
                             <CostInput />
                         </div>
@@ -94,36 +56,9 @@ const PnLPage: React.FC = () => {
                 </div>
 
                 {/* Actions */}
-                <div style={{ display: "flex", justifyContent: "flex-end", gap: 10, marginTop: 16 }}>
-                    <button
-                        style={{
-                            padding: "9px 20px",
-                            borderRadius: 7,
-                            border: `1px solid ${T.border}`,
-                            background: "transparent",
-                            color: T.muted,
-                            fontSize: 12,
-                            cursor: "pointer",
-                        }}
-                    >
-                        Cancel
-                    </button>
-                    <button
-                        onClick={() => setCogsSetup(true)}
-                        style={{
-                            padding: "9px 28px",
-                            borderRadius: 7,
-                            border: "none",
-                            background: T.grad,
-                            color: "#000",
-                            fontSize: 12,
-                            fontWeight: 700,
-                            cursor: "pointer",
-                            display: "flex",
-                            alignItems: "center",
-                            gap: 6,
-                        }}
-                    >
+                <div className="pnl-actions">
+                    <button className="btn-cancel">Cancel</button>
+                    <button onClick={() => setCogsSetup(true)} className="btn-save">
                         <Ico type="check" size={14} color="#000" /> Save Costs
                     </button>
                 </div>
@@ -135,9 +70,9 @@ const PnLPage: React.FC = () => {
     const totalUnits = PRODUCTS_FILLED.reduce((s, p) => s + p.units, 0);
 
     return (
-        <div>
+        <div className="pnl-page">
             {/* Summary Cards */}
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12, marginBottom: 20 }}>
+            <div className="summary-grid">
                 <MetricCard
                     label="Total Revenue"
                     value={`$${PRODUCTS_FILLED.reduce((s, p) => s + p.revenue, 0).toLocaleString()}`}
@@ -165,43 +100,19 @@ const PnLPage: React.FC = () => {
                 right={
                     <button
                         onClick={() => setCogsSetup(false)}
-                        style={{
-                            padding: "5px 14px",
-                            borderRadius: 6,
-                            border: `1px solid ${T.border}`,
-                            background: "transparent",
-                            color: T.muted,
-                            fontSize: 10,
-                            fontFamily: fonts.mono,
-                            cursor: "pointer",
-                        }}
+                        className="btn-edit-cogs"
                     >
                         Edit COGS
                     </button>
                 }
             />
-            <div
-                style={{
-                    background: T.bgCard,
-                    border: `1px solid ${T.border}`,
-                    borderRadius: 12,
-                    overflow: "hidden",
-                }}
-            >
+            <div className="data-table">
                 <div
-                    style={{
-                        display: "grid",
-                        gridTemplateColumns: "0.3fr 2fr 0.7fr 0.8fr 0.7fr 0.8fr 0.8fr 0.8fr 0.7fr",
-                        gap: 6,
-                        padding: "12px 16px",
-                        borderBottom: `1px solid ${T.border}`,
-                        background: T.bgInput,
-                    }}
+                    className="table-header"
+                    style={{ gridTemplateColumns: "0.3fr 2fr 0.7fr 0.8fr 0.7fr 0.8fr 0.8fr 0.8fr 0.7fr" }}
                 >
                     {["", "Product", "Units", "Revenue", "COGS", "Shipping", "Ad Cost", "Profit", "Margin"].map((h) => (
-                        <span key={h} style={{ fontSize: 9, fontWeight: 600, color: T.dim, fontFamily: fonts.mono }}>
-                            {h}
-                        </span>
+                        <span key={h} className="header-cell">{h}</span>
                     ))}
                 </div>
 
@@ -213,70 +124,35 @@ const PnLPage: React.FC = () => {
                     return (
                         <div
                             key={p.id}
-                            style={{
-                                display: "grid",
-                                gridTemplateColumns: "0.3fr 2fr 0.7fr 0.8fr 0.7fr 0.8fr 0.8fr 0.8fr 0.7fr",
-                                gap: 6,
-                                padding: "10px 16px",
-                                borderBottom: `1px solid ${T.border}`,
-                                alignItems: "center",
-                            }}
+                            className="table-row"
+                            style={{ gridTemplateColumns: "0.3fr 2fr 0.7fr 0.8fr 0.7fr 0.8fr 0.8fr 0.8fr 0.7fr" }}
                         >
-                            <div
-                                style={{
-                                    width: 26,
-                                    height: 26,
-                                    borderRadius: 5,
-                                    background: `${T.accent}12`,
-                                    display: "flex",
-                                    alignItems: "center",
-                                    justifyContent: "center",
-                                    fontSize: 8,
-                                    fontWeight: 700,
-                                    fontFamily: fonts.mono,
-                                    color: T.accent,
-                                }}
-                            >
-                                {p.img}
+                            <div className="product-thumb">{p.img}</div>
+                            <div className="product-info">
+                                <div className="product-name">{p.name}</div>
+                                <div className="product-sku">{p.sku}</div>
                             </div>
-                            <div>
-                                <div style={{ fontSize: 11, fontWeight: 500 }}>{p.name}</div>
-                                <div style={{ fontSize: 9, fontFamily: fonts.mono, color: T.dim }}>{p.sku}</div>
-                            </div>
-                            <span style={{ fontSize: 11, fontFamily: fonts.mono, color: T.muted }}>{p.units}</span>
-                            <span style={{ fontSize: 11, fontFamily: fonts.mono, fontWeight: 600 }}>${p.revenue.toLocaleString()}</span>
-                            <span style={{ fontSize: 11, fontFamily: fonts.mono, color: T.red }}>
-                                ${(p.cogs * p.units).toLocaleString(undefined, { maximumFractionDigits: 0 })}
-                            </span>
-                            <span style={{ fontSize: 11, fontFamily: fonts.mono, color: T.orange }}>
-                                ${(p.shipping * p.units).toLocaleString(undefined, { maximumFractionDigits: 0 })}
-                            </span>
-                            <span style={{ fontSize: 11, fontFamily: fonts.mono, color: T.yellow }}>
-                                ${ac.toLocaleString(undefined, { maximumFractionDigits: 0 })}
-                            </span>
-                            <span
-                                style={{ fontSize: 11, fontFamily: fonts.mono, color: pr > 0 ? T.green : T.red, fontWeight: 700 }}
-                            >
+                            <span className="cell-mono cell-muted">{p.units}</span>
+                            <span className="cell-mono cell-bold">${p.revenue.toLocaleString()}</span>
+                            <span className="cell-mono cell-red">${(p.cogs * p.units).toLocaleString(undefined, { maximumFractionDigits: 0 })}</span>
+                            <span className="cell-mono cell-orange">${(p.shipping * p.units).toLocaleString(undefined, { maximumFractionDigits: 0 })}</span>
+                            <span className="cell-mono cell-yellow">${ac.toLocaleString(undefined, { maximumFractionDigits: 0 })}</span>
+                            <span className={`cell-mono ${pr > 0 ? "cell-profit-positive" : "cell-profit-negative"}`}>
                                 ${pr.toLocaleString(undefined, { maximumFractionDigits: 0 })}
                             </span>
-                            <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
-                                <div style={{ width: 32, height: 4, borderRadius: 2, background: T.bgInput, overflow: "hidden" }}>
+                            <div className="margin-bar-wrap">
+                                <div className="margin-bar-track">
                                     <div
+                                        className="margin-bar-fill"
                                         style={{
                                             width: `${Math.max(0, Math.min(100, mg))}%`,
-                                            height: "100%",
                                             background: mg > 40 ? T.green : mg > 20 ? T.yellow : T.red,
-                                            borderRadius: 2,
                                         }}
                                     />
                                 </div>
                                 <span
-                                    style={{
-                                        fontSize: 10,
-                                        fontFamily: fonts.mono,
-                                        color: mg > 40 ? T.green : mg > 20 ? T.yellow : T.red,
-                                        fontWeight: 600,
-                                    }}
+                                    className="margin-bar-label"
+                                    style={{ color: mg > 40 ? T.green : mg > 20 ? T.yellow : T.red }}
                                 >
                                     {mg.toFixed(0)}%
                                 </span>
@@ -292,37 +168,14 @@ const PnLPage: React.FC = () => {
 // ── Cost Input Helper ──
 
 const CostInput: React.FC = () => (
-    <div style={{ position: "relative" }}>
-        <span
-            style={{
-                position: "absolute",
-                left: 8,
-                top: "50%",
-                transform: "translateY(-50%)",
-                fontSize: 11,
-                color: T.dim,
-                fontFamily: fonts.mono,
-            }}
-        >
-            $
-        </span>
+    <div className="cost-input-wrap">
+        <span className="currency-prefix">$</span>
         <input
             type="text"
             placeholder="0.00"
-            style={{
-                width: "100%",
-                padding: "6px 8px 6px 18px",
-                borderRadius: 6,
-                border: `1px solid ${T.border}`,
-                background: T.bgInput,
-                color: T.text,
-                fontSize: 12,
-                fontFamily: fonts.mono,
-                outline: "none",
-                boxSizing: "border-box",
-            }}
-            onFocus={(e) => (e.target.style.borderColor = T.accent)}
-            onBlur={(e) => (e.target.style.borderColor = T.border)}
+            className="cost-input"
+            onFocus={(e) => (e.target.style.borderColor = "#00E5CC")}
+            onBlur={(e) => (e.target.style.borderColor = "#151B2E")}
         />
     </div>
 );
