@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { T, fonts } from '../../libs/theme/theme';
+import { T } from '../../libs/theme/theme';
 import { Ico } from '../../libs/components/common/Ico';
+import { loginUser, registerUser } from '../../api/user/POST/auth';
 
 const Join: NextPage = () => {
     const router = useRouter();
@@ -11,12 +12,14 @@ const Join: NextPage = () => {
     const [form, setForm] = useState({ name: '', email: '', password: '', confirmPassword: '' });
     const [errors, setErrors] = useState<Record<string, string>>({});
     const [loading, setLoading] = useState(false);
+    const [serverError, setServerError] = useState('');
 
     const handleInput = (field: string, value: string) => {
         setForm((prev) => ({ ...prev, [field]: value }));
         if (errors[field]) {
             setErrors((prev) => ({ ...prev, [field]: '' }));
         }
+        if (serverError) setServerError('');
     };
 
     const validate = () => {
@@ -42,15 +45,25 @@ const Join: NextPage = () => {
         return Object.keys(newErrors).length === 0;
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!validate()) return;
+
         setLoading(true);
-        // Simulate API Call
-        setTimeout(() => {
-            setLoading(false);
+        setServerError('');
+
+        try {
+            if (loginView) {
+                await loginUser({ email: form.email, password: form.password });
+            } else {
+                await registerUser({ email: form.email, password: form.password, name: form.name });
+            }
             router.push('/');
-        }, 1000);
+        } catch (err: any) {
+            setServerError(err?.message ?? 'Something went wrong. Please try again.');
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -186,6 +199,10 @@ const Join: NextPage = () => {
                                     />
                                 </div>
                             </div>
+                        )}
+
+                        {serverError && (
+                            <div className="server-error">{serverError}</div>
                         )}
 
                         <button
