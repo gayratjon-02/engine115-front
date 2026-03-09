@@ -1,23 +1,4 @@
-// Theme Colors matching libs/theme/theme.ts
-$bg: #06080F;
-$bgCard: #0C1019;
-$bgHover: #111624;
-$bgInput: #0A0D16;
-$border: #151B2E;
-$borderHover: #1E2745;
-$text: #E4E8F1;
-$muted: #6B7799;
-$dim: #3D4668;
-$accent: #00E5CC;
-$accentDim: #00E5CC30;
-$accentGlow: #00E5CC15;
-$blue: #3B82F6;
-$red: #EF4444;
-$grad: linear-gradient(135deg, #00E5CC, #3B82F6);
-
-// Fonts matching libs/theme/theme.ts
-$mono: 'JetBrains Mono', 'SF Mono', monospace;
-$sans: 'DM Sans', system-ui, sans-serif;
+@import '../../variables';
 
 .join-page {
     min-height: 100vh;

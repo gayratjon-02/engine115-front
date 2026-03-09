@@ -1,0 +1,222 @@
+@import '../../variables';
+
+.sidebar {
+    height: 100vh;
+    background: $bgCard;
+    border-right: 1px solid $border;
+    display: flex;
+    flex-direction: column;
+    transition: width 0.2s;
+    overflow: hidden;
+    position: sticky;
+    top: 0;
+
+    // Modifiers
+    &.is-collapsed {
+        width: 64px;
+        min-width: 64px;
+    }
+
+    &.is-expanded {
+        width: 220px;
+        min-width: 220px;
+    }
+
+    .sidebar-header {
+        border-bottom: 1px solid $border;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        &.is-collapsed {
+            padding: 18px 16px;
+        }
+
+        &.is-expanded {
+            padding: 18px 20px;
+        }
+
+        .logo-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 7px;
+            background: $grad;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 800;
+            color: #000;
+            font-family: $mono;
+            flex-shrink: 0;
+        }
+
+        .logo-text {
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: $text;
+        }
+    }
+
+    .store-selector-wrap {
+        padding: 10px 14px;
+        border-bottom: 1px solid $border;
+
+        .store-selector {
+            padding: 7px 10px;
+            border-radius: 7px;
+            background: $bgInput;
+            border: 1px solid $border;
+            font-size: 11px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+
+            .status-dot {
+                width: 7px;
+                height: 7px;
+                border-radius: 50%;
+                background: $green;
+            }
+
+            .store-name {
+                font-weight: 500;
+                color: $text;
+            }
+
+            .store-platform {
+                margin-left: auto;
+                font-size: 9px;
+                color: $dim;
+            }
+        }
+    }
+
+    .nav-menu {
+        flex: 1;
+        padding: 10px 8px;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    .sources-badge-wrap {
+        padding: 10px 14px;
+        border-top: 1px solid $border;
+
+        .sources-badge {
+            padding: 7px 10px;
+            border-radius: 7px;
+            background: $bgInput;
+            border: 1px solid $border;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+
+            .status-dot {
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background: $green;
+            }
+
+            .source-count {
+                color: $muted;
+            }
+
+            .source-status {
+                margin-left: auto;
+                font-size: 9px;
+                color: $dim;
+                font-family: $mono;
+            }
+        }
+    }
+
+    .upgrade-cta-wrap {
+        padding: 12px 14px;
+        border-top: 1px solid $border;
+
+        .upgrade-cta {
+            padding: 10px 14px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, rgba(0, 229, 204, 0.08), rgba(59, 130, 246, 0.08));
+            border: 1px solid rgba(0, 229, 204, 0.2);
+            text-align: center;
+
+            .cta-text {
+                font-size: 10px;
+                font-weight: 600;
+                color: $accent;
+                margin-bottom: 3px;
+            }
+
+            .cta-price {
+                font-size: 9px;
+                color: $dim;
+                font-family: $mono;
+            }
+        }
+    }
+}
+
+// Sidebar Nav Item
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    background: transparent;
+    transition: all 0.15s;
+    position: relative;
+    color: $muted;
+
+    &.is-collapsed {
+        padding: 9px 16px;
+    }
+
+    &.is-expanded {
+        padding: 9px 12px;
+    }
+
+    &:hover {
+        background: $bgHover;
+        color: $text;
+    }
+
+    &.is-active {
+        background: $accentGlow;
+        color: $accent;
+
+        .nav-label {
+            font-weight: 600;
+            color: $accent;
+        }
+    }
+
+    .nav-label {
+        font-size: 12px;
+        font-weight: 500;
+        flex: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        // Color is inherited from parent depending on active/hover
+        color: inherit;
+    }
+
+    .pro-badge {
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 8px;
+        font-weight: 700;
+        font-family: $mono;
+        background: $gradPurple;
+        color: $purple;
+        border: 1px solid rgba(168, 85, 247, 0.25);
+    }
+}
