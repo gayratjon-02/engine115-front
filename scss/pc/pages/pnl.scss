@@ -1,0 +1,226 @@
+@import '../variables';
+
+// ── PnL Page ──
+.pnl-page {
+    .page-intro {
+        font-size: 13px;
+        color: $muted;
+        margin-bottom: 18px;
+        margin-top: -4px;
+    }
+
+    .data-table {
+        background: $bgCard;
+        border: 1px solid $border;
+        border-radius: 12px;
+        overflow: hidden;
+
+        .table-header {
+            display: grid;
+            gap: 10px;
+            padding: 12px 16px;
+            border-bottom: 1px solid $border;
+            background: $bgInput;
+
+            .header-cell {
+                font-size: 9px;
+                font-weight: 600;
+                color: $dim;
+                font-family: $mono;
+            }
+        }
+
+        .table-row {
+            display: grid;
+            gap: 10px;
+            padding: 10px 16px;
+            border-bottom: 1px solid $border;
+            align-items: center;
+
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+    }
+
+    .product-thumb {
+        width: 26px;
+        height: 26px;
+        border-radius: 5px;
+        background: rgba(0, 229, 204, 0.12);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 8px;
+        font-weight: 700;
+        font-family: $mono;
+        color: $accent;
+    }
+
+    .product-info {
+        .product-name {
+            font-size: 11px;
+            font-weight: 500;
+            color: $text;
+        }
+
+        .product-sku {
+            font-size: 9px;
+            font-family: $mono;
+            color: $dim;
+        }
+    }
+
+    .cell-mono {
+        font-size: 11px;
+        font-family: $mono;
+    }
+
+    .cell-bold {
+        font-weight: 600;
+        color: $text;
+    }
+
+    .cell-muted {
+        color: $muted;
+    }
+
+    .cell-red {
+        color: $red;
+    }
+
+    .cell-orange {
+        color: $orange;
+    }
+
+    .cell-yellow {
+        color: $yellow;
+    }
+
+    .cell-profit-positive {
+        color: $green;
+        font-weight: 700;
+    }
+
+    .cell-profit-negative {
+        color: $red;
+        font-weight: 700;
+    }
+
+    // Margin bar
+    .margin-bar-wrap {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+
+        .margin-bar-track {
+            width: 32px;
+            height: 4px;
+            border-radius: 2px;
+            background: $bgInput;
+            overflow: hidden;
+
+            .margin-bar-fill {
+                height: 100%;
+                border-radius: 2px;
+            }
+        }
+
+        .margin-bar-label {
+            font-size: 10px;
+            font-family: $mono;
+            font-weight: 600;
+        }
+    }
+
+    // Cost Input
+    .cost-input-wrap {
+        position: relative;
+
+        .currency-prefix {
+            position: absolute;
+            left: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 11px;
+            color: $dim;
+            font-family: $mono;
+        }
+
+        .cost-input {
+            width: 100%;
+            padding: 6px 8px 6px 18px;
+            border-radius: 6px;
+            border: 1px solid $border;
+            background: $bgInput;
+            color: $text;
+            font-size: 12px;
+            font-family: $mono;
+            outline: none;
+            box-sizing: border-box;
+
+            &:focus {
+                border-color: $accent;
+            }
+        }
+    }
+
+    // Actions row
+    .pnl-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-top: 16px;
+
+        .btn-cancel {
+            padding: 9px 20px;
+            border-radius: 7px;
+            border: 1px solid $border;
+            background: transparent;
+            color: $muted;
+            font-size: 12px;
+            cursor: pointer;
+
+            &:hover {
+                background: $bgHover;
+            }
+        }
+
+        .btn-save {
+            padding: 9px 28px;
+            border-radius: 7px;
+            border: none;
+            background: $grad;
+            color: #000;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-edit-cogs {
+            padding: 5px 14px;
+            border-radius: 6px;
+            border: 1px solid $border;
+            background: transparent;
+            color: $muted;
+            font-size: 10px;
+            font-family: $mono;
+            cursor: pointer;
+
+            &:hover {
+                background: $bgHover;
+            }
+        }
+    }
+
+    // Summary metric grid
+    .summary-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+}
