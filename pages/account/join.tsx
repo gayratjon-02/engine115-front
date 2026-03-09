@@ -8,15 +8,43 @@ import { Ico } from '../../libs/components/common/Ico';
 const Join: NextPage = () => {
     const router = useRouter();
     const [loginView, setLoginView] = useState(true);
-    const [form, setForm] = useState({ name: '', email: '', password: '' });
+    const [form, setForm] = useState({ name: '', email: '', password: '', confirmPassword: '' });
+    const [errors, setErrors] = useState<Record<string, string>>({});
     const [loading, setLoading] = useState(false);
 
     const handleInput = (field: string, value: string) => {
         setForm((prev) => ({ ...prev, [field]: value }));
+        if (errors[field]) {
+            setErrors((prev) => ({ ...prev, [field]: '' }));
+        }
+    };
+
+    const validate = () => {
+        const newErrors: Record<string, string> = {};
+
+        if (!loginView && !form.name.trim()) newErrors.name = 'Full name is required';
+
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) newErrors.email = 'Invalid email format';
+
+        if (!loginView) {
+            if (form.password.length < 8) newErrors.password = 'Min 8 characters';
+            else if (!/(?=.*[a-z])/.test(form.password)) newErrors.password = 'Need lowercase';
+            else if (!/(?=.*[A-Z])/.test(form.password)) newErrors.password = 'Need uppercase';
+            else if (!/(?=.*\d)/.test(form.password)) newErrors.password = 'Need a number';
+            else if (!/(?=.*[!@#$%^&*-])/.test(form.password)) newErrors.password = 'Need special char';
+
+            if (form.password !== form.confirmPassword) {
+                newErrors.confirmPassword = 'Passwords do not match';
+            }
+        }
+
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
     };
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+        if (!validate()) return;
         setLoading(true);
         // Simulate API Call
         setTimeout(() => {
@@ -182,79 +210,56 @@ const Join: NextPage = () => {
                     <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
                         {!loginView && (
                             <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-                                <label style={{ fontSize: 11, fontWeight: 600, color: T.dim, fontFamily: fonts.mono }}>
-                                    FULL NAME
-                                </label>
+                                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                    <label style={{ fontSize: 11, fontWeight: 600, color: T.dim, fontFamily: fonts.mono }}>FULL NAME</label>
+                                    {errors.name && <span style={{ fontSize: 11, color: T.red, fontWeight: 600, fontFamily: fonts.mono }}>{errors.name}</span>}
+                                </div>
                                 <div style={{ position: 'relative' }}>
-                                    <Ico
-                                        type="users"
-                                        size={14}
-                                        color={T.muted}
-                                        style={{ position: 'absolute', left: 16, top: '50%', transform: 'translateY(-50%)' }}
-                                    />
+                                    <Ico type="users" size={14} color={T.muted} style={{ position: 'absolute', left: 16, top: '50%', transform: 'translateY(-50%)' }} />
                                     <input
                                         type="text"
-                                        required
                                         placeholder="e.g. John Doe"
                                         value={form.name}
                                         onChange={(e) => handleInput('name', e.target.value)}
                                         style={{
-                                            width: '100%',
-                                            background: T.bgInput,
-                                            border: `1px solid ${T.border}`,
-                                            borderRadius: 12,
-                                            padding: '14px 16px 14px 42px',
-                                            color: T.text,
-                                            fontSize: 14,
-                                            outline: 'none',
-                                            transition: 'border-color 0.2s',
+                                            width: '100%', background: T.bgInput, border: `1px solid ${errors.name ? T.red : T.border}`,
+                                            borderRadius: 12, padding: '14px 16px 14px 42px', color: T.text, fontSize: 14, outline: 'none', transition: 'border-color 0.2s'
                                         }}
-                                        onFocus={(e) => (e.target.style.borderColor = T.accent)}
-                                        onBlur={(e) => (e.target.style.borderColor = T.border)}
+                                        onFocus={(e) => { if (!errors.name) e.target.style.borderColor = T.accent; }}
+                                        onBlur={(e) => { if (!errors.name) e.target.style.borderColor = T.border; }}
                                     />
                                 </div>
                             </div>
                         )}
 
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-                            <label style={{ fontSize: 11, fontWeight: 600, color: T.dim, fontFamily: fonts.mono }}>
-                                EMAIL ADDRESS
-                            </label>
+                            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                <label style={{ fontSize: 11, fontWeight: 600, color: T.dim, fontFamily: fonts.mono }}>EMAIL ADDRESS</label>
+                                {errors.email && <span style={{ fontSize: 11, color: T.red, fontWeight: 600, fontFamily: fonts.mono }}>{errors.email}</span>}
+                            </div>
                             <div style={{ position: 'relative' }}>
-                                <Ico
-                                    type="mail"
-                                    size={14}
-                                    color={T.muted}
-                                    style={{ position: 'absolute', left: 16, top: '50%', transform: 'translateY(-50%)' }}
-                                />
+                                <Ico type="mail" size={14} color={T.muted} style={{ position: 'absolute', left: 16, top: '50%', transform: 'translateY(-50%)' }} />
                                 <input
                                     type="email"
-                                    required
                                     placeholder="name@company.com"
                                     value={form.email}
                                     onChange={(e) => handleInput('email', e.target.value)}
                                     style={{
-                                        width: '100%',
-                                        background: T.bgInput,
-                                        border: `1px solid ${T.border}`,
-                                        borderRadius: 12,
-                                        padding: '14px 16px 14px 42px',
-                                        color: T.text,
-                                        fontSize: 14,
-                                        outline: 'none',
-                                        transition: 'border-color 0.2s',
+                                        width: '100%', background: T.bgInput, border: `1px solid ${errors.email ? T.red : T.border}`,
+                                        borderRadius: 12, padding: '14px 16px 14px 42px', color: T.text, fontSize: 14, outline: 'none', transition: 'border-color 0.2s'
                                     }}
-                                    onFocus={(e) => (e.target.style.borderColor = T.accent)}
-                                    onBlur={(e) => (e.target.style.borderColor = T.border)}
+                                    onFocus={(e) => { if (!errors.email) e.target.style.borderColor = T.accent; }}
+                                    onBlur={(e) => { if (!errors.email) e.target.style.borderColor = T.border; }}
                                 />
                             </div>
                         </div>
 
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
                             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                                <label style={{ fontSize: 11, fontWeight: 600, color: T.dim, fontFamily: fonts.mono }}>
-                                    PASSWORD
-                                </label>
+                                <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+                                    <label style={{ fontSize: 11, fontWeight: 600, color: T.dim, fontFamily: fonts.mono }}>PASSWORD</label>
+                                    {errors.password && <span style={{ fontSize: 11, color: T.red, fontWeight: 600, fontFamily: fonts.mono }}>{errors.password}</span>}
+                                </div>
                                 {loginView && (
                                     <span style={{ fontSize: 11, color: T.accent, cursor: 'pointer', fontFamily: fonts.sans, fontWeight: 600 }}>
                                         Forgot password?
@@ -262,55 +267,54 @@ const Join: NextPage = () => {
                                 )}
                             </div>
                             <div style={{ position: 'relative' }}>
-                                <Ico
-                                    type="lock"
-                                    size={14}
-                                    color={T.muted}
-                                    style={{ position: 'absolute', left: 16, top: '50%', transform: 'translateY(-50%)' }}
-                                />
+                                <Ico type="lock" size={14} color={T.muted} style={{ position: 'absolute', left: 16, top: '50%', transform: 'translateY(-50%)' }} />
                                 <input
                                     type="password"
-                                    required
                                     placeholder="••••••••"
                                     value={form.password}
                                     onChange={(e) => handleInput('password', e.target.value)}
                                     style={{
-                                        width: '100%',
-                                        background: T.bgInput,
-                                        border: `1px solid ${T.border}`,
-                                        borderRadius: 12,
-                                        padding: '14px 16px 14px 42px',
-                                        color: T.text,
-                                        fontSize: 14,
-                                        outline: 'none',
-                                        transition: 'border-color 0.2s',
+                                        width: '100%', background: T.bgInput, border: `1px solid ${errors.password ? T.red : T.border}`,
+                                        borderRadius: 12, padding: '14px 16px 14px 42px', color: T.text, fontSize: 14, outline: 'none', transition: 'border-color 0.2s'
                                     }}
-                                    onFocus={(e) => (e.target.style.borderColor = T.accent)}
-                                    onBlur={(e) => (e.target.style.borderColor = T.border)}
+                                    onFocus={(e) => { if (!errors.password) e.target.style.borderColor = T.accent; }}
+                                    onBlur={(e) => { if (!errors.password) e.target.style.borderColor = T.border; }}
                                 />
                             </div>
                         </div>
 
+                        {!loginView && (
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                    <label style={{ fontSize: 11, fontWeight: 600, color: T.dim, fontFamily: fonts.mono }}>CONFIRM PASSWORD</label>
+                                    {errors.confirmPassword && <span style={{ fontSize: 11, color: T.red, fontWeight: 600, fontFamily: fonts.mono }}>{errors.confirmPassword}</span>}
+                                </div>
+                                <div style={{ position: 'relative' }}>
+                                    <Ico type="lock" size={14} color={T.muted} style={{ position: 'absolute', left: 16, top: '50%', transform: 'translateY(-50%)' }} />
+                                    <input
+                                        type="password"
+                                        placeholder="••••••••"
+                                        value={form.confirmPassword}
+                                        onChange={(e) => handleInput('confirmPassword', e.target.value)}
+                                        style={{
+                                            width: '100%', background: T.bgInput, border: `1px solid ${errors.confirmPassword ? T.red : T.border}`,
+                                            borderRadius: 12, padding: '14px 16px 14px 42px', color: T.text, fontSize: 14, outline: 'none', transition: 'border-color 0.2s'
+                                        }}
+                                        onFocus={(e) => { if (!errors.confirmPassword) e.target.style.borderColor = T.accent; }}
+                                        onBlur={(e) => { if (!errors.confirmPassword) e.target.style.borderColor = T.border; }}
+                                    />
+                                </div>
+                            </div>
+                        )}
+
                         <button
                             type="submit"
-                            disabled={loading || !form.email || !form.password || (!loginView && !form.name)}
+                            disabled={loading || !form.email || !form.password || (!loginView && (!form.name || !form.confirmPassword))}
                             style={{
-                                width: '100%',
-                                marginTop: 12,
-                                background: T.grad,
-                                border: 'none',
-                                borderRadius: 12,
-                                padding: '14px 24px',
-                                color: '#000',
-                                fontSize: 14,
-                                fontWeight: 700,
-                                cursor: loading ? 'not-allowed' : 'pointer',
-                                opacity: (loading || !form.email || !form.password || (!loginView && !form.name)) ? 0.7 : 1,
-                                transition: 'opacity 0.2s, transform 0.1s',
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                gap: 8,
+                                width: '100%', marginTop: 12, background: T.grad, border: 'none', borderRadius: 12, padding: '14px 24px',
+                                color: '#000', fontSize: 14, fontWeight: 700, cursor: loading ? 'not-allowed' : 'pointer',
+                                opacity: (loading || !form.email || !form.password || (!loginView && (!form.name || !form.confirmPassword))) ? 0.7 : 1,
+                                transition: 'opacity 0.2s, transform 0.1s', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: 8,
                             }}
                             onMouseDown={(e) => (e.currentTarget.style.transform = 'scale(0.98)')}
                             onMouseUp={(e) => (e.currentTarget.style.transform = 'scale(1)')}
@@ -331,7 +335,11 @@ const Join: NextPage = () => {
                         {loginView ? "Don't have an account yet?" : 'Already have an account?'}
                         {' '}
                         <span
-                            onClick={() => setLoginView(!loginView)}
+                            onClick={() => {
+                                setLoginView(!loginView);
+                                setErrors({});
+                                setForm({ name: '', email: '', password: '', confirmPassword: '' });
+                            }}
                             style={{ color: T.accent, fontWeight: 600, cursor: 'pointer', display: 'inline-block' }}
                         >
                             {loginView ? 'Sign up' : 'Log in'}
