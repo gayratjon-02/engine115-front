@@ -5,9 +5,10 @@ import { Stack } from '@mui/material';
 import { TopBar } from '../common/TopBar';
 import { Sidebar } from '../common/Sidebar';
 import { T } from '../../theme/theme';
+import withAuth from '../../hocs/withAuth';
 
 const withLayoutBasic = (Component: any) => {
-    return (props: any) => {
+    const LayoutWrapped = (props: any) => {
         const router = useRouter();
 
         const memoizedValues = useMemo(() => {
@@ -16,11 +17,11 @@ const withLayoutBasic = (Component: any) => {
             if (router.pathname.includes('/pnl')) pageId = 'pnl';
             else if (router.pathname.includes('/creatives')) pageId = 'creatives';
             else if (router.pathname.includes('/ltv')) pageId = 'ltv';
+            else if (router.pathname.includes('/account')) pageId = 'account';
 
             return { pageId };
         }, [router.pathname]);
 
-        // Layout implementation equivalent to App.tsx's structure
         return (
             <>
                 <Head>
@@ -73,6 +74,9 @@ const withLayoutBasic = (Component: any) => {
             </>
         );
     };
+
+    // ── Compose: every page using withLayoutBasic is automatically auth-guarded ──
+    return withAuth(LayoutWrapped);
 };
 
 export default withLayoutBasic;

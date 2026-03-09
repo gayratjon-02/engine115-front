@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NextPage } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { T } from '../../libs/theme/theme';
 import { Ico } from '../../libs/components/common/Ico';
 import { loginUser, registerUser } from '../../api/user/POST/auth';
+import { isLoggedIn } from '../../libs/api';
 
 const Join: NextPage = () => {
     const router = useRouter();
@@ -13,6 +14,14 @@ const Join: NextPage = () => {
     const [errors, setErrors] = useState<Record<string, string>>({});
     const [loading, setLoading] = useState(false);
     const [serverError, setServerError] = useState('');
+
+    // If already logged in → redirect to dashboard (or redirect param)
+    useEffect(() => {
+        if (isLoggedIn()) {
+            const redirectTo = (router.query.redirect as string) ?? '/';
+            router.replace(redirectTo);
+        }
+    }, []);
 
     const handleInput = (field: string, value: string) => {
         setForm((prev) => ({ ...prev, [field]: value }));
@@ -58,7 +67,9 @@ const Join: NextPage = () => {
             } else {
                 await registerUser({ email: form.email, password: form.password, name: form.name });
             }
-            router.push('/');
+            // Redirect back to the page they were trying to access
+            const redirectTo = (router.query.redirect as string) ?? '/';
+            router.push(redirectTo);
         } catch (err: any) {
             setServerError(err?.message ?? 'Something went wrong. Please try again.');
         } finally {
