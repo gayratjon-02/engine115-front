@@ -145,7 +145,7 @@ const Join: NextPage = () => {
 
                         <div className="input-group">
                             <div className="label-row">
-                                <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+                                <div className="label-error-row">
                                     <label className="input-label">PASSWORD</label>
                                     {errors.password && <span className="error-text">{errors.password}</span>}
                                 </div>

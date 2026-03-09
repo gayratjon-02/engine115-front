@@ -37,7 +37,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
           <div className={`lock-icon-wrap ${hov ? "is-hovered" : ""}`}>
             <Ico type="lock" size={14} color={hov ? T.accent : T.muted} />
           </div>
-          <span className="lock-label" style={{ color: hov ? T.accent : T.muted }}>
+          <span className={`lock-label ${hov ? "is-hovered" : "is-default"}`}>
             {hov ? "Upgrade to Pro" : "Pro Feature"}
           </span>
         </div>
