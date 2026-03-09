@@ -1,0 +1,150 @@
+@import '../variables';
+
+// ── Creatives Page ──
+.creatives-page {
+    .page-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 6px;
+
+        .page-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: $text;
+        }
+
+        .demo-badge {
+            padding: 3px 8px;
+            border-radius: 4px;
+            background: rgba(252, 211, 77, 0.2);
+            border: 1px solid rgba(252, 211, 77, 0.3);
+
+            span {
+                font-size: 9px;
+                font-weight: 700;
+                font-family: $mono;
+                color: $yellow;
+            }
+        }
+
+        .result-count {
+            font-size: 12px;
+            color: $dim;
+            font-family: $mono;
+        }
+    }
+
+    .page-subtitle {
+        font-size: 13px;
+        color: $muted;
+        margin-bottom: 18px;
+        margin-top: 0;
+    }
+
+    // Ask AI Button
+    .ask-ai-row {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 18px;
+
+        .ask-ai-btn {
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: 1px solid $border;
+            background: $bgCard;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: border-color 0.2s;
+
+            &:hover {
+                border-color: $accent;
+            }
+
+            span {
+                font-size: 12px;
+                color: $text;
+                font-weight: 500;
+            }
+        }
+    }
+
+    // Filter bar
+    .filter-bar {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 18px;
+        flex-wrap: wrap;
+        align-items: center;
+
+        .search-wrap {
+            position: relative;
+            flex: 0 0 220px;
+
+            .search-input {
+                width: 100%;
+                padding: 7px 10px;
+                border-radius: 7px;
+                border: 1px solid $border;
+                background: $bgInput;
+                color: $text;
+                font-size: 11px;
+                outline: none;
+                box-sizing: border-box;
+
+                &::placeholder {
+                    color: $muted;
+                }
+
+                &:focus {
+                    border-color: $accent;
+                }
+            }
+        }
+
+        .clear-filters-btn {
+            padding: 6px 12px;
+            border-radius: 7px;
+            border: 1px solid $border;
+            background: $bgCard;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+
+            span {
+                font-size: 11px;
+                color: $red;
+                font-weight: 500;
+            }
+        }
+    }
+
+    // Grid
+    .creatives-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+    }
+
+    // Empty state
+    .empty-state {
+        text-align: center;
+        padding: 60px 0;
+        color: $dim;
+
+        .empty-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-top: 12px;
+            color: $muted;
+        }
+
+        .empty-sub {
+            font-size: 12px;
+            margin-top: 4px;
+        }
+    }
+}
