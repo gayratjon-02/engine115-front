@@ -1,0 +1,88 @@
+@import '../../variables';
+
+// ── OAuth Callback Page ──
+.auth-callback-page {
+    min-height: 100vh;
+    background: $bg;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .callback-card {
+        width: 100%;
+        max-width: 380px;
+        background: $bgCard;
+        border: 1px solid $border;
+        border-radius: 20px;
+        padding: 36px 32px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 28px;
+
+        .callback-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 18px;
+            font-weight: 700;
+            color: $text;
+        }
+
+        .callback-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            text-align: center;
+
+            p {
+                font-size: 13px;
+                color: $muted;
+                line-height: 1.5;
+            }
+
+            &.is-success p {
+                color: $green;
+            }
+
+            &.is-error p {
+                color: $red;
+            }
+
+            // Loading spinner
+            .spinner {
+                width: 32px;
+                height: 32px;
+                border: 3px solid $border;
+                border-top-color: $accent;
+                border-radius: 50%;
+                animation: spin 0.8s linear infinite;
+            }
+
+            .retry-btn {
+                margin-top: 8px;
+                padding: 10px 20px;
+                border-radius: 8px;
+                border: 1px solid $border;
+                background: $bgInput;
+                color: $text;
+                font-size: 13px;
+                font-weight: 500;
+                cursor: pointer;
+                transition: all 0.2s;
+
+                &:hover {
+                    background: $bgHover;
+                    border-color: $accent;
+                }
+            }
+        }
+    }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

@@ -6,6 +6,7 @@ import { T } from '../../libs/theme/theme';
 import { Ico } from '../../libs/components/common/Ico';
 import { loginUser, registerUser } from '../../api/user/POST/auth';
 import { isLoggedIn } from '../../libs/api';
+import { redirectToGoogleAuth } from '../../api/user/GET/auth';
 
 const Join: NextPage = () => {
     const router = useRouter();
@@ -110,7 +111,7 @@ const Join: NextPage = () => {
                     </div>
 
                     <div className="social-btn-wrap">
-                        <button type="button" className="social-btn">
+                        <button type="button" className="social-btn" onClick={redirectToGoogleAuth}>
                             <Ico type="google" size={18} />
                             Continue with Google
                         </button>
