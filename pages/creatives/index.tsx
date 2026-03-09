@@ -1,13 +1,13 @@
 import React, { useState, useMemo } from "react";
 import withLayoutBasic from "../../libs/components/layout/LayoutBasic";
-import { T, fonts } from "../../libs/theme/theme";
+import { T } from "../../libs/theme/theme";
 import { Ico } from "../../libs/components/common/Ico";
 import { DemoBanner, SampleWatermark, UpgradeCta, FilterDropdown, CreativeCard } from "../../libs/components/common/Shared";
 import { CREATIVES_DEMO } from "../../libs/data/mockData";
 import type { CreativeFilters } from "../../libs/types";
 
 interface CreativesPageProps {
-    isDemo?: boolean; // true = free tier, show sample data
+    isDemo?: boolean;
 }
 
 const CreativesPage: React.FC<CreativesPageProps> = ({ isDemo = true }) => {
@@ -18,7 +18,6 @@ const CreativesPage: React.FC<CreativesPageProps> = ({ isDemo = true }) => {
     });
     const [showVideoMetrics, setShowVideoMetrics] = useState<Record<number, boolean>>({});
 
-    // Derive campaigns and ad sets from data
     const campaigns = useMemo(
         () => Array.from(new Set(CREATIVES_DEMO.map((c) => c.campaign))),
         []
@@ -32,7 +31,6 @@ const CreativesPage: React.FC<CreativesPageProps> = ({ isDemo = true }) => {
         return Array.from(new Set(filtered.map((c) => c.adSet)));
     }, [filters.campaign]);
 
-    // Apply all filters
     const filteredCreatives = useMemo(() => {
         return CREATIVES_DEMO.filter((c) => {
             if (filters.campaign !== "all" && c.campaign !== filters.campaign) return false;
@@ -45,30 +43,21 @@ const CreativesPage: React.FC<CreativesPageProps> = ({ isDemo = true }) => {
     const hasFilters = filters.campaign !== "all" || filters.adSet !== "all" || filters.searchAd;
 
     return (
-        <>
+        <div className="creatives-page">
             {/* Header */}
-            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 6 }}>
+            <div className="page-header">
                 <Ico type="trophy" size={22} color={T.yellow} />
-                <span style={{ fontSize: 20, fontWeight: 700 }}>Top Creatives</span>
+                <span className="page-title">Top Creatives</span>
                 {isDemo && (
-                    <div
-                        style={{
-                            padding: "3px 8px",
-                            borderRadius: 4,
-                            background: `${T.yellow}20`,
-                            border: `1px solid ${T.yellow}30`,
-                        }}
-                    >
-                        <span style={{ fontSize: 9, fontWeight: 700, fontFamily: fonts.mono, color: T.yellow }}>
-                            EXAMPLE DATA
-                        </span>
+                    <div className="demo-badge">
+                        <span>EXAMPLE DATA</span>
                     </div>
                 )}
-                <span style={{ fontSize: 12, color: T.dim, fontFamily: fonts.mono }}>
+                <span className="result-count">
                     {filteredCreatives.length} {isDemo ? "sample " : ""}ads
                 </span>
             </div>
-            <p style={{ fontSize: 13, color: T.muted, marginBottom: 18, marginTop: 0 }}>
+            <p className="page-subtitle">
                 AI-ranked top performing creatives. The AI decides what wins based on your trained scoring model.
             </p>
 
@@ -76,47 +65,22 @@ const CreativesPage: React.FC<CreativesPageProps> = ({ isDemo = true }) => {
             {isDemo && <DemoBanner feature="AI Creative Analysis" />}
 
             {/* Ask AI Button */}
-            <div style={{ display: "flex", gap: 10, marginBottom: 18 }}>
-                <div
-                    style={{
-                        padding: "8px 16px",
-                        borderRadius: 8,
-                        border: `1px solid ${T.border}`,
-                        background: T.bgCard,
-                        display: "flex",
-                        alignItems: "center",
-                        gap: 8,
-                        cursor: "pointer",
-                        transition: "border-color 0.2s",
-                    }}
-                >
+            <div className="ask-ai-row">
+                <div className="ask-ai-btn">
                     <Ico type="msg" size={14} color={T.muted} />
-                    <span style={{ fontSize: 12, color: T.text, fontWeight: 500 }}>Ask me anything</span>
+                    <span>Ask me anything</span>
                 </div>
             </div>
 
             {/* Filters */}
-            <div style={{ display: "flex", gap: 8, marginBottom: 18, flexWrap: "wrap", alignItems: "center" }}>
-                <div style={{ position: "relative", flex: "0 0 220px" }}>
+            <div className="filter-bar">
+                <div className="search-wrap">
                     <input
                         type="text"
                         placeholder="Search ad name..."
                         value={filters.searchAd}
                         onChange={(e) => setFilters({ ...filters, searchAd: e.target.value })}
-                        style={{
-                            width: "100%",
-                            padding: "7px 10px",
-                            borderRadius: 7,
-                            border: `1px solid ${T.border}`,
-                            background: T.bgInput,
-                            color: T.text,
-                            fontSize: 11,
-                            fontFamily: fonts.sans,
-                            outline: "none",
-                            boxSizing: "border-box",
-                        }}
-                        onFocus={(e) => (e.target.style.borderColor = T.accent)}
-                        onBlur={(e) => (e.target.style.borderColor = T.border)}
+                        className="search-input"
                     />
                 </div>
                 <FilterDropdown
@@ -136,25 +100,16 @@ const CreativesPage: React.FC<CreativesPageProps> = ({ isDemo = true }) => {
                 {hasFilters && (
                     <div
                         onClick={() => setFilters({ campaign: "all", adSet: "all", searchAd: "" })}
-                        style={{
-                            padding: "6px 12px",
-                            borderRadius: 7,
-                            border: `1px solid ${T.border}`,
-                            background: T.bgCard,
-                            display: "flex",
-                            alignItems: "center",
-                            gap: 5,
-                            cursor: "pointer",
-                        }}
+                        className="clear-filters-btn"
                     >
                         <Ico type="x" size={12} color={T.red} />
-                        <span style={{ fontSize: 11, color: T.red, fontWeight: 500 }}>Clear filters</span>
+                        <span>Clear filters</span>
                     </div>
                 )}
             </div>
 
             {/* Card Grid */}
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 14 }}>
+            <div className="creatives-grid">
                 {filteredCreatives.map((ad) => (
                     <CreativeCard key={ad.id} ad={ad} />
                 ))}
@@ -162,12 +117,10 @@ const CreativesPage: React.FC<CreativesPageProps> = ({ isDemo = true }) => {
 
             {/* Empty State */}
             {filteredCreatives.length === 0 && (
-                <div style={{ textAlign: "center", padding: "60px 0", color: T.dim }}>
+                <div className="empty-state">
                     <Ico type="search" size={32} color={T.dim} />
-                    <div style={{ fontSize: 14, fontWeight: 600, marginTop: 12, color: T.muted }}>
-                        No creatives match your filters
-                    </div>
-                    <div style={{ fontSize: 12, marginTop: 4 }}>Try adjusting your campaign, ad set, or search filters</div>
+                    <div className="empty-title">No creatives match your filters</div>
+                    <div className="empty-sub">Try adjusting your campaign, ad set, or search filters</div>
                 </div>
             )}
 
@@ -180,7 +133,7 @@ const CreativesPage: React.FC<CreativesPageProps> = ({ isDemo = true }) => {
             )}
 
             {isDemo && <SampleWatermark />}
-        </>
+        </div>
     );
 };
 
