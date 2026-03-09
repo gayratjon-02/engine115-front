@@ -73,13 +73,15 @@ export const Sidebar: React.FC<SidebarProps> = ({ page, onPageChange, collapsed,
         )}
 
         {/* Account Link */}
-        <SidebarItem
-          icon="user"
-          label="Account"
-          active={false}
-          collapsed={collapsed}
-          onClick={() => router.push("/account")}
-        />
+        <div className="account-item-wrap">
+          <SidebarItem
+            icon="user"
+            label="Account"
+            active={page === "account"}
+            collapsed={collapsed}
+            onClick={() => router.push("/account")}
+          />
+        </div>
       </div>
     </div>
   );
