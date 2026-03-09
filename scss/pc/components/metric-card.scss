@@ -79,6 +79,14 @@
             .lock-label {
                 font-size: 10px;
                 font-weight: 600;
+
+                &.is-hovered {
+                    color: $accent;
+                }
+
+                &.is-default {
+                    color: $muted;
+                }
             }
         }
     }
@@ -138,4 +146,9 @@
         letter-spacing: -0.02em;
         margin-bottom: 8px;
     }
+}
+
+// ── Spark SVG ──
+.spark-svg {
+    display: block;
 }
