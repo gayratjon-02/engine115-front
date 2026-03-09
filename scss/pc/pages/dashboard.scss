@@ -1,0 +1,96 @@
+@import '../variables';
+
+// ── Dashboard Page ──
+.dashboard-page {
+    .edit-pins-link {
+        font-size: 10px;
+        color: $dim;
+        font-family: $mono;
+        cursor: pointer;
+
+        &:hover {
+            color: $muted;
+        }
+    }
+
+    .favorites-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        margin-bottom: 28px;
+    }
+
+    .channel-section {
+        margin-bottom: 28px;
+
+        .channel-metrics-grid {
+            display: grid;
+            gap: 12px;
+        }
+    }
+
+    .pro-previews-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+        margin-top: 12px;
+    }
+
+    // LTV preview inside locked wrap
+    .ltv-preview {
+        display: flex;
+        gap: 12px;
+
+        .ltv-preview-item {
+            flex: 1;
+            text-align: center;
+            background: $bgInput;
+            border-radius: 8px;
+            padding: 12px;
+
+            .ltv-value {
+                font-size: 16px;
+                font-weight: 700;
+                font-family: $mono;
+                color: $text;
+            }
+
+            .ltv-label {
+                font-size: 9px;
+                color: $dim;
+                font-family: $mono;
+            }
+        }
+    }
+
+    // AI creative preview inside locked wrap
+    .ai-preview-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+
+        .ai-preview-card {
+            background: $bgInput;
+            border-radius: 8px;
+            padding: 12px;
+
+            .ai-card-header {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                margin-bottom: 6px;
+
+                .ai-card-label {
+                    font-size: 10px;
+                    color: $dim;
+                }
+            }
+
+            .ai-card-value {
+                font-size: 12px;
+                font-weight: 600;
+                color: $text;
+            }
+        }
+    }
+}

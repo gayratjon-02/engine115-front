@@ -1,0 +1,141 @@
+@import '../../variables';
+
+.metric-card {
+    background: $bgCard;
+    border: 1px solid $border;
+    border-radius: 12px;
+    padding: 16px 18px;
+    transition: border-color 0.2s;
+    position: relative;
+    cursor: default;
+
+    &:hover {
+        border-color: $borderHover;
+    }
+
+    &.is-locked {
+        cursor: pointer;
+        overflow: hidden;
+        transition: all 0.3s;
+
+        &:hover {
+            border-color: rgba(0, 229, 204, 0.4);
+        }
+
+        .locked-blur {
+            filter: blur(7px);
+            opacity: 0.3;
+            pointer-events: none;
+
+            .card-label {
+                font-size: 12px;
+                color: $muted;
+                margin-bottom: 8px;
+            }
+
+            .card-value {
+                font-size: 24px;
+                font-weight: 700;
+                font-family: $mono;
+                color: $text;
+                margin-bottom: 6px;
+            }
+        }
+
+        .locked-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.3s;
+
+            &.is-hovered {
+                background: $accentGlow;
+            }
+
+            .lock-icon-wrap {
+                width: 32px;
+                height: 32px;
+                border-radius: 8px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.3s;
+
+                &.is-hovered {
+                    background: $accentDim;
+                    border: 1px solid rgba(0, 229, 204, 0.5);
+                }
+
+                &:not(.is-hovered) {
+                    background: $bgInput;
+                    border: 1px solid $border;
+                }
+            }
+
+            .lock-label {
+                font-size: 10px;
+                font-weight: 600;
+            }
+        }
+    }
+
+    .pin-icon {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+
+    .card-header {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-bottom: 8px;
+
+        .icon-badge {
+            width: 18px;
+            height: 18px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-label {
+            font-size: 12px;
+            color: $muted;
+            font-weight: 500;
+        }
+
+        .card-change {
+            font-size: 11px;
+            font-weight: 600;
+            font-family: $mono;
+            margin-left: 4px;
+
+            &.is-up {
+                color: $green;
+            }
+
+            &.is-down {
+                color: $red;
+            }
+
+            &.is-neutral {
+                color: $muted;
+            }
+        }
+    }
+
+    .card-value {
+        font-size: 26px;
+        font-weight: 700;
+        font-family: $mono;
+        color: $text;
+        letter-spacing: -0.02em;
+        margin-bottom: 8px;
+    }
+}
