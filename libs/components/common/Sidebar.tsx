@@ -72,15 +72,18 @@ export const Sidebar: React.FC<SidebarProps> = ({ page, onPageChange, collapsed,
           </div>
         )}
 
-        {/* Account Link */}
+        {/* Account + Theme Toggle */}
         <div className="account-item-wrap">
-          <SidebarItem
-            icon="user"
-            label="Account"
-            active={page === "account"}
-            collapsed={collapsed}
-            onClick={() => router.push("/account")}
-          />
+          <div className="account-row">
+            <SidebarItem
+              icon="user"
+              label="Account"
+              active={page === "account"}
+              collapsed={collapsed}
+              onClick={() => router.push("/account")}
+            />
+            {!collapsed && <ThemeToggle />}
+          </div>
         </div>
       </div>
     </div>
@@ -97,6 +100,21 @@ interface SidebarItemProps {
   collapsed: boolean;
   onClick: () => void;
 }
+
+const ThemeToggle: React.FC = () => {
+  const [dark, setDark] = useState(true);
+
+  const toggle = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setDark((d) => !d);
+  };
+
+  return (
+    <button className={`theme-toggle ${dark ? "is-dark" : "is-light"}`} onClick={toggle} title={dark ? "Light mode" : "Dark mode"}>
+      <Ico type={dark ? "moon" : "sun"} size={14} color={dark ? T.muted : T.yellow} />
+    </button>
+  );
+};
 
 const SidebarItem: React.FC<SidebarItemProps> = ({ icon, label, active, pro, collapsed, onClick }) => {
   const [hov, setHov] = useState(false);

@@ -171,6 +171,35 @@
     .account-item-wrap {
         padding: 8px 8px 12px;
         border-top: 1px solid $border;
+
+        .account-row {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+
+            .nav-item {
+                flex: 1;
+            }
+        }
+    }
+
+    .theme-toggle {
+        width: 30px;
+        height: 30px;
+        border-radius: 7px;
+        border: 1px solid $border;
+        background: $bgInput;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        flex-shrink: 0;
+        transition: all 0.15s;
+
+        &:hover {
+            border-color: $borderHover;
+            background: $bgHover;
+        }
     }
 }
 
