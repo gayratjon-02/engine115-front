@@ -4,13 +4,20 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import { IntegrationsSection } from "../../libs/components/integrations/IntegrationsSection";
 import type { Integration } from "../../libs/components/integrations/IntegrationsSection";
-import { INTEGRATIONS_INIT } from "../../libs/data/mockData";
 import withLayoutBasic from "../../libs/components/layout/LayoutBasic";
 import { getUserBrands } from "../../api/brand/GET/brand";
-import { getIntegrationsStatus } from "../../api/shopify/GET/shopify";
-import { redirectToShopifyAuth } from "../../api/shopify/GET/shopify";
+import { getIntegrationsStatus, redirectToShopifyAuth } from "../../api/shopify/GET/shopify";
 import { disconnectPlatform } from "../../api/shopify/POST/shopify";
 import { PLATFORM } from "../../libs/enums/shopify.enum";
+
+const INTEGRATIONS_DEFAULT: Integration[] = [
+    { id: "shopify", name: "Shopify", icon: "box", description: "Sync orders, products, and customer data", connected: false },
+    { id: "meta", name: "Meta Ads", icon: "image", description: "Facebook & Instagram ad performance", connected: false },
+    { id: "google-ads", name: "Google Ads", icon: "google", description: "Search, display, and shopping campaigns", connected: false },
+    { id: "tiktok", name: "TikTok Ads", icon: "play", description: "TikTok ad spend and conversions", connected: false },
+    { id: "klaviyo", name: "Klaviyo", icon: "mail", description: "Email & SMS marketing attribution", connected: false },
+    { id: "google-analytics", name: "Google Analytics", icon: "chart", description: "Website traffic and behavior data", connected: false },
+];
 
 const PLATFORM_MAP: Record<string, PLATFORM> = {
     shopify: PLATFORM.SHOPIFY,
@@ -21,9 +28,9 @@ const PLATFORM_MAP: Record<string, PLATFORM> = {
 
 const IntegrationsPage: NextPage = () => {
     const router = useRouter();
-    const [integrations, setIntegrations] = useState<Integration[]>(INTEGRATIONS_INIT);
+    const [integrations, setIntegrations] = useState<Integration[]>(INTEGRATIONS_DEFAULT);
     const [brandId, setBrandId] = useState<string | null>(null);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     const fetchIntegrations = useCallback(async (bId: string) => {
         try {
@@ -45,7 +52,9 @@ const IntegrationsPage: NextPage = () => {
                 }),
             );
         } catch {
-            // API xatosi bo'lsa mock data qoladi
+            setIntegrations(INTEGRATIONS_DEFAULT);
+        } finally {
+            setLoading(false);
         }
     }, []);
 
@@ -56,9 +65,11 @@ const IntegrationsPage: NextPage = () => {
                 if (brands.length > 0) {
                     setBrandId(brands[0].id);
                     await fetchIntegrations(brands[0].id);
+                } else {
+                    setLoading(false);
                 }
             } catch {
-                // Auth yo'q yoki brand yo'q — mock data qoladi
+                setLoading(false);
             }
         })();
     }, [fetchIntegrations]);
