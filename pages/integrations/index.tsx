@@ -6,9 +6,11 @@ import { IntegrationsSection } from "../../libs/components/integrations/Integrat
 import type { Integration } from "../../libs/components/integrations/IntegrationsSection";
 import withLayoutBasic from "../../libs/components/layout/LayoutBasic";
 import { getUserBrands } from "../../api/brand/GET/brand";
+import { createBrand } from "../../api/brand/POST/brand";
 import { getIntegrationsStatus, redirectToShopifyAuth } from "../../api/shopify/GET/shopify";
 import { disconnectPlatform } from "../../api/shopify/POST/shopify";
 import { PLATFORM } from "../../libs/enums/shopify.enum";
+import { isLoggedIn } from "../../libs/api";
 
 const INTEGRATIONS_DEFAULT: Integration[] = [
     { id: "shopify", name: "Shopify", icon: "box", description: "Sync orders, products, and customer data", connected: false },
@@ -80,25 +82,51 @@ const IntegrationsPage: NextPage = () => {
         }
     }, [router.query, brandId, fetchIntegrations]);
 
+    const ensureBrand = async (): Promise<string | null> => {
+        if (brandId) return brandId;
+        if (!isLoggedIn()) {
+            router.push("/account/join");
+            return null;
+        }
+        try {
+            const brands = await getUserBrands();
+            if (brands.length > 0) {
+                setBrandId(brands[0].id);
+                return brands[0].id;
+            }
+            const newBrand = await createBrand({ name: "My Store" });
+            setBrandId(newBrand.id);
+            return newBrand.id;
+        } catch {
+            router.push("/account/join");
+            return null;
+        }
+    };
+
     const handleConnect = async (id: string) => {
-        if (!brandId) return;
+        const bId = await ensureBrand();
+        if (!bId) return;
 
         if (id === "shopify") {
             const shop = prompt("Shopify domain kiriting (masalan: mystore.myshopify.com):");
-            if (!shop) return;
-            redirectToShopifyAuth(brandId, shop);
+            if (!shop || !shop.includes(".myshopify.com")) {
+                alert("Noto'g'ri format. Masalan: mystore.myshopify.com");
+                return;
+            }
+            redirectToShopifyAuth(bId, shop);
             return;
         }
     };
 
     const handleDisconnect = async (id: string) => {
-        if (!brandId) return;
+        const bId = await ensureBrand();
+        if (!bId) return;
         const platform = PLATFORM_MAP[id];
         if (!platform) return;
 
         setLoading(true);
         try {
-            await disconnectPlatform(brandId, { platform });
+            await disconnectPlatform(bId, { platform });
             setIntegrations((prev) =>
                 prev.map((i) =>
                     i.id === id ? { ...i, connected: false, lastSync: undefined } : i,
