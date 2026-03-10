@@ -2,27 +2,36 @@ import type { AppProps } from 'next/app';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Head from 'next/head';
-import { fonts, T } from '../libs/theme/theme';
+import { fonts } from '../libs/theme/theme';
 import '../scss/app.scss';
 
-// Create a minimalist MUI theme adhering to the predefined T constants
 const theme = createTheme({
     palette: {
         mode: 'dark',
         background: {
-            default: T.bg,
-            paper: T.bgCard,
+            default: 'var(--bg)',
+            paper: 'var(--bgCard)',
         },
         primary: {
-            main: T.accent,
+            main: '#00E5CC',
         },
         text: {
-            primary: T.text,
-            secondary: T.muted,
+            primary: 'var(--text)',
+            secondary: 'var(--muted)',
         },
     },
     typography: {
         fontFamily: fonts.sans,
+    },
+    components: {
+        MuiCssBaseline: {
+            styleOverrides: {
+                body: {
+                    backgroundColor: 'var(--bg)',
+                    color: 'var(--text)',
+                },
+            },
+        },
     },
 });
 

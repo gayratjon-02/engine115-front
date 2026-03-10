@@ -26,6 +26,8 @@ const PAGE_TITLES: Record<PageId, string> = {
   pnl: "P&L",
   creatives: "AI Creative Analysis",
   ltv: "LTV Cohorts",
+  integrations: "Integrations",
+  account: "Account",
 };
 
 export const TopBar: React.FC<TopBarProps> = ({

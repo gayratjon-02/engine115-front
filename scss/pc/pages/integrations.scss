@@ -76,10 +76,10 @@
     }
 
     &.is-connected {
-        border-color: rgba(0, 229, 204, 0.15);
+        border-color: var(--accent-15);
 
         &:hover {
-            border-color: rgba(0, 229, 204, 0.3);
+            border-color: var(--accent-30);
         }
     }
 
@@ -147,12 +147,12 @@
 
             &.is-connect {
                 background: $accentGlow;
-                border: 1px solid rgba(0, 229, 204, 0.3);
+                border: 1px solid var(--accent-30);
                 color: $accent;
 
                 &:hover {
-                    background: rgba(0, 229, 204, 0.2);
-                    border-color: rgba(0, 229, 204, 0.5);
+                    background: var(--accent-20);
+                    border-color: var(--accent-50);
                 }
             }
 
@@ -163,8 +163,8 @@
                 min-width: 96px;
 
                 &.is-hovered {
-                    background: rgba(239, 68, 68, 0.07);
-                    border-color: rgba(239, 68, 68, 0.4);
+                    background: var(--red-5);
+                    border-color: var(--red-40);
                     color: $red;
                 }
             }

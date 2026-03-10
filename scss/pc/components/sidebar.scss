@@ -149,8 +149,8 @@
         .upgrade-cta {
             padding: 10px 14px;
             border-radius: 8px;
-            background: linear-gradient(135deg, rgba(0, 229, 204, 0.08), rgba(59, 130, 246, 0.08));
-            border: 1px solid rgba(0, 229, 204, 0.2);
+            background: linear-gradient(135deg, var(--accent-8), var(--blue-8));
+            border: 1px solid var(--accent-20);
             text-align: center;
 
             .cta-text {
@@ -257,6 +257,6 @@
         font-family: $mono;
         background: $gradPurple;
         color: $purple;
-        border: 1px solid rgba(168, 85, 247, 0.25);
+        border: 1px solid var(--purple-25);
     }
 }

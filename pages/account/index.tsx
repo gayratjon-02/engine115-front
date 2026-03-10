@@ -10,7 +10,7 @@ import { isLoggedIn } from "../../libs/api";
 import { getCurrentPlan } from "../../api/subscription/GET/subscription";
 import { upgradePlan, cancelPlan } from "../../api/subscription/POST/subscription";
 import { SUBSCRIPTION_PLAN, PLAN_STATUS } from "../../libs/enums/subscription.enum";
-import type { User } from "../../libs/types/user/user";
+import type { UserDto } from "../../libs/types/user/user.dto";
 import type { SubscriptionDto } from "../../libs/types/subscription/subscription.dto";
 import withLayoutBasic from "../../libs/components/layout/LayoutBasic";
 
@@ -38,7 +38,7 @@ const PLANS = [
 
 const AccountPage: NextPage = () => {
     const router = useRouter();
-    const [user, setUser] = useState<User | null>(null);
+    const [user, setUser] = useState<UserDto | null>(null);
     const [subscription, setSubscription] = useState<SubscriptionDto | null>(null);
     const [loading, setLoading] = useState(true);
     const [loggingOut, setLoggingOut] = useState(false);

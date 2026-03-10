@@ -19,7 +19,7 @@
         transition: all 0.3s;
 
         &:hover {
-            border-color: rgba(0, 229, 204, 0.4);
+            border-color: var(--accent-30);
         }
 
         .locked-blur {
@@ -67,7 +67,7 @@
 
                 &.is-hovered {
                     background: $accentDim;
-                    border: 1px solid rgba(0, 229, 204, 0.5);
+                    border: 1px solid var(--accent-50);
                 }
 
                 &:not(.is-hovered) {

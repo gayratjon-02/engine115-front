@@ -61,7 +61,7 @@
                 height: 40px;
                 border-radius: 10px;
                 background: $accentGlow;
-                border: 1px solid rgba(0, 229, 204, 0.3); // accent with opacity
+                border: 1px solid var(--accent-30); // accent with opacity
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -262,8 +262,8 @@
         .server-error {
             padding: 10px 14px;
             border-radius: 8px;
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid rgba(239, 68, 68, 0.3);
+            background: var(--red-10);
+            border: 1px solid var(--red-25);
             color: $red;
             font-size: 12px;
             font-weight: 500;
