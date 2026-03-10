@@ -15,14 +15,14 @@ export interface Integration {
 
 interface IntegrationsSectionProps {
     integrations: Integration[];
+    loading: boolean;
     onConnect: (id: string) => void;
     onDisconnect: (id: string) => void;
 }
 
-// ── Integrations Section ──
-
 export const IntegrationsSection: React.FC<IntegrationsSectionProps> = ({
     integrations,
+    loading,
     onConnect,
     onDisconnect,
 }) => {
@@ -48,6 +48,7 @@ export const IntegrationsSection: React.FC<IntegrationsSectionProps> = ({
                     <IntegrationCard
                         key={integration.id}
                         integration={integration}
+                        loading={loading}
                         onConnect={() => onConnect(integration.id)}
                         onDisconnect={() => onDisconnect(integration.id)}
                     />
@@ -57,16 +58,16 @@ export const IntegrationsSection: React.FC<IntegrationsSectionProps> = ({
     );
 };
 
-// ── Integration Card ──
-
 interface IntegrationCardProps {
     integration: Integration;
+    loading: boolean;
     onConnect: () => void;
     onDisconnect: () => void;
 }
 
 const IntegrationCard: React.FC<IntegrationCardProps> = ({
     integration,
+    loading,
     onConnect,
     onDisconnect,
 }) => {
@@ -98,11 +99,16 @@ const IntegrationCard: React.FC<IntegrationCardProps> = ({
                     <button
                         className={`integration-btn is-disconnect ${hov ? "is-hovered" : ""}`}
                         onClick={onDisconnect}
+                        disabled={loading}
                     >
                         {hov ? "Disconnect" : "Connected"}
                     </button>
                 ) : (
-                    <button className="integration-btn is-connect" onClick={onConnect}>
+                    <button
+                        className="integration-btn is-connect"
+                        onClick={onConnect}
+                        disabled={loading}
+                    >
                         Connect
                     </button>
                 )}
