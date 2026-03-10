@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { T } from "../../theme/theme";
 import { Ico } from "./Ico";
@@ -104,14 +104,26 @@ interface SidebarItemProps {
 const ThemeToggle: React.FC = () => {
   const [dark, setDark] = useState(true);
 
+  useEffect(() => {
+    const saved = localStorage.getItem("theme");
+    if (saved === "light") {
+      setDark(false);
+      document.documentElement.setAttribute("data-theme", "light");
+    }
+  }, []);
+
   const toggle = (e: React.MouseEvent) => {
     e.stopPropagation();
-    setDark((d) => !d);
+    const next = !dark;
+    setDark(next);
+    const theme = next ? "dark" : "light";
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
   };
 
   return (
     <button className={`theme-toggle ${dark ? "is-dark" : "is-light"}`} onClick={toggle} title={dark ? "Light mode" : "Dark mode"}>
-      <Ico type={dark ? "moon" : "sun"} size={14} color={dark ? T.muted : T.yellow} />
+      <Ico type={dark ? "moon" : "sun"} size={14} color={dark ? "#6B7799" : "#D97706"} />
     </button>
   );
 };

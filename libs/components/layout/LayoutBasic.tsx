@@ -33,8 +33,8 @@ const withLayoutBasic = (Component: any) => {
                     direction="row"
                     sx={{
                         height: '100vh',
-                        background: T.bg,
-                        color: T.text,
+                        background: 'var(--bg)',
+                        color: 'var(--text)',
                         overflow: 'hidden',
                     }}
                 >

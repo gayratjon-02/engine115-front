@@ -1,25 +1,25 @@
-// Theme Colors matching libs/theme/theme.ts
-$bg: #06080F;
-$bgCard: #0C1019;
-$bgHover: #111624;
-$bgInput: #0A0D16;
-$border: #151B2E;
-$borderHover: #1E2745;
-$text: #E4E8F1;
-$muted: #6B7799;
-$dim: #3D4668;
-$accent: #00E5CC;
-$accentDim: #00E5CC30;
-$accentGlow: #00E5CC15;
-$blue: #3B82F6;
-$red: #EF4444;
-$green: #10B981;
-$purple: #A855F7;
-$orange: #F59E0B;
-$yellow: #FCD34D;
-$grad: linear-gradient(135deg, #00E5CC, #3B82F6);
-$gradPurple: linear-gradient(135deg, rgba(168, 85, 247, 0.12), rgba(139, 92, 246, 0.12));
+// Theme Colors — mapped to CSS custom properties in _themes.scss
+$bg: var(--bg);
+$bgCard: var(--bgCard);
+$bgHover: var(--bgHover);
+$bgInput: var(--bgInput);
+$border: var(--border);
+$borderHover: var(--borderHover);
+$text: var(--text);
+$muted: var(--muted);
+$dim: var(--dim);
+$accent: var(--accent);
+$accentDim: var(--accentDim);
+$accentGlow: var(--accentGlow);
+$blue: var(--blue);
+$red: var(--red);
+$green: var(--green);
+$purple: var(--purple);
+$orange: var(--orange);
+$yellow: var(--yellow);
+$grad: var(--grad);
+$gradPurple: var(--gradPurple);
 
-// Fonts matching libs/theme/theme.ts
+// Fonts
 $mono: 'JetBrains Mono', 'SF Mono', monospace;
 $sans: 'DM Sans', system-ui, sans-serif;
